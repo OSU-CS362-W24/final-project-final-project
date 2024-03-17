@@ -27,6 +27,9 @@
 require("@testing-library/cypress/add-commands")
 
 Cypress.Commands.add("data", function() {
+    cy.findByLabelText("Chart title").type("cats v dogs")
+    cy.findByLabelText("X label").type("cats")
+    cy.findByLabelText("Y label").type("dogs")
     cy.findByRole("button", { name: "+"}).click()
     cy.findByRole("button", { name: "+"}).click()
     cy.findByTestId("data-1").type('1')
