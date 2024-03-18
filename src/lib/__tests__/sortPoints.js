@@ -190,4 +190,34 @@ describe('sortPoints Function Unit Testing', () => {
 
     })
 
+
+    // X and Y values can be a mix of positive and negative values and can still be sorted correctly
+    test('X and Y values can be a mix of positive and negative values and can still be sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [{ x: -5, y: 15 }, { x: 1, y: -15 }, { x: 7, y: -15 }, { x: -2, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: -5, y: 15 }, { x: -2, y: 15 }, { x: 1, y: -15 }, { x: 7, y: -15 }])
+
+    })
+
+
+    // Large integer X values can be sorted correctly
+    test('Large integer values can be sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [{ x: 50293023, y: 15 }, { x: 124095820, y: 15 }, { x: -13249781937, y: 15 }, { x: 2103948123123, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: -13249781937, y: 15 }, { x: 50293023, y: 15 }, { x: 124095820, y: 15 }, { x: 2103948123123, y: 15 }])
+
+    })
+
 })
