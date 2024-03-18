@@ -235,4 +235,23 @@ describe('sortPoints Function Unit Testing', () => {
 
     })
 
+
+    // Points in Descending Order are sorted correctly
+    test('Points in Descending Order are sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [{ x: 5, y: 15 }, { x: 4, y: 15 }, { x: 2, y: 15 }, { x: 1, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: 1, y: 15 }, { x: 2, y: 15 }, { x: 4, y: 15 }, { x: 5, y: 15 }])
+
+    })
+
+
+
+
+
 })
