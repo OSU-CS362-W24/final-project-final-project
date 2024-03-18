@@ -427,5 +427,26 @@ describe('generateChartImg Function Unit Testing', () => {
     })
 
 
+    // Color parameter takes a hex color and returns valid blob URL
+    test('Color parameter takes a hex color and returns valid blob URL', async () => {
+        // Arrange - set up all the paramters to be passed in
+        const type = 'line'
+        const data = [{ x: 1, y: 15 }, { x: 2, y: 15 }, { x: 5, y: 15 }, { x: 7, y: 15 }]
+        const xLabel = 'X axis'
+        const yLabel = 'Y axis'
+        const title = 'Title of Chart'
+        const color = '#3c8df9'
+
+        // Act - generate the image AKA image URL
+        const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
+        // console.log(imgUrl)
+
+        // Assert - Check if the generated URL is a string and valid blob URL 
+        expect(typeof imgUrl).toBe('string')
+        expect(imgUrl).toMatch(/^blob:/)
+
+    })
+
+
 
 })
