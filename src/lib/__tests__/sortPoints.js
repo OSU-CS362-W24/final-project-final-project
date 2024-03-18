@@ -220,4 +220,19 @@ describe('sortPoints Function Unit Testing', () => {
 
     })
 
+
+    // Floating point number X values get sorted correctly
+    test('Floating point number X values get sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [{ x: 5.5, y: 15 }, { x: 1.01, y: 15 }, { x: -2.90032, y: 15 }, { x: 7.0000000001, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: -2.90032, y: 15 }, { x: 1.01, y: 15 }, { x: 5.5, y: 15 }, { x: 7.0000000001, y: 15 }])
+
+    })
+
 })
