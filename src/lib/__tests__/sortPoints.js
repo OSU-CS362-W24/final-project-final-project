@@ -251,7 +251,34 @@ describe('sortPoints Function Unit Testing', () => {
     })
 
 
+    // Duplicate X float values within a larger array gets sorted correctly
+    test('Duplicate X float values within a larger array gets sorted correctly', () => {
 
+        // Arrange - unsorted array of points
+        const points = [{ x: 1.01, y: 17 }, { x: 1.01, y: 15 }, { x: -2, y: 15 }, { x: 7.0000000001, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: -2, y: 15 }, { x: 1.01, y: 17 }, { x: 1.01, y: 15 }, { x: 7.0000000001, y: 15 }])
+
+    })
+
+
+    // Duplicate X integer values within a larger array gets sorted correctly
+    test('Duplicate X integer values within a larger array gets sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [{ x: 1, y: 17 }, { x: 1, y: 15 }, { x: -2, y: 15 }, { x: 7.0000000001, y: 15 }]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([{ x: -2, y: 15 }, { x: 1, y: 17 }, { x: 1, y: 15 }, { x: 7.0000000001, y: 15 }])
+
+    })
 
 
 })
