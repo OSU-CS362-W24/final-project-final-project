@@ -223,5 +223,68 @@ describe('generateChartImg Function Unit Testing', () => {
     })
 
 
+    // Negative values in data returns valid blob URL
+    test('Negative values in data returns valid blob URL', async () => {
+        // Arrange - set up all the paramters to be passed in
+        const type = 'line'
+        const data = [{ x: -7, y: 15 }, { x: -5, y: 15 }, { x: -2, y: -15 }, { x: 1, y: 15 }]
+        const xLabel = 'X axis'
+        const yLabel = 'Y axis'
+        const title = 'Title of Chart'
+        const color = 'red'
+
+        // Act - generate the image AKA image URL
+        const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
+       
+
+        // Assert - Check if the generated URL is a string and valid blob URL 
+        expect(typeof imgUrl).toBe('string')
+        expect(imgUrl).toMatch(/^blob:/)
+
+    })
+
+
+    // Decimal values in data returns valid blob URL
+    test('Decimal values in data returns valid blob URL', async () => {
+        // Arrange - set up all the paramters to be passed in
+        const type = 'line'
+        const data = [{ x: 1.0002, y: 15 }, { x: 2.213123, y: 15.01 }, { x: 5, y: 15 }, { x: 7.999999, y: 15 }]
+        const xLabel = 'X axis'
+        const yLabel = 'Y axis'
+        const title = 'Title of Chart'
+        const color = 'red'
+
+        // Act - generate the image AKA image URL
+        const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
+       
+
+        // Assert - Check if the generated URL is a string and valid blob URL 
+        expect(typeof imgUrl).toBe('string')
+        expect(imgUrl).toMatch(/^blob:/)
+
+    })
+
+
+
+    // Negative Decimal values in data returns valid blob URL
+    test('Negative decimal values in data returns valid blob URL', async () => {
+        // Arrange - set up all the paramters to be passed in
+        const type = 'line'
+        const data = [{ x: -7.5096023, y: 15.1 }, { x: -5.01, y: 15 }, { x: -2, y: -15 }, { x: 1.9999999, y: 15 }]
+        const xLabel = 'X axis'
+        const yLabel = 'Y axis'
+        const title = 'Title of Chart'
+        const color = 'red'
+
+        // Act - generate the image AKA image URL
+        const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
+       
+
+        // Assert - Check if the generated URL is a string and valid blob URL 
+        expect(typeof imgUrl).toBe('string')
+        expect(imgUrl).toMatch(/^blob:/)
+
+    })
+
 
 })
