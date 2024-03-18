@@ -22,7 +22,8 @@ describe('generateChartImg Function Unit Testing', () => {
         const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
         // console.log(imgUrl)
 
-        // Assert - Check if the generated URL is a blob URL
+        // Assert - Check if the generated URL is a string and valid blob URL 
+        expect(typeof imgUrl).toBe('string')
         expect(imgUrl).toMatch(/^blob:/)
 
     })
@@ -40,7 +41,8 @@ describe('generateChartImg Function Unit Testing', () => {
         // Act - generate the image AKA image URL
         const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
 
-        // Assert - Check if the generated URL is a blob URL
+        // Assert - Check if the generated URL is a string and valid blob URL
+        expect(typeof imgUrl).toBe('string')
         expect(imgUrl).toMatch(/^blob:/)
 
     })
@@ -59,7 +61,8 @@ describe('generateChartImg Function Unit Testing', () => {
         // Act - generate the image AKA image URL
         const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
 
-        // Assert - Check if the generated URL is a blob URL
+        // Assert - Check if the generated URL is a string and valid blob URL
+        expect(typeof imgUrl).toBe('string')
         expect(imgUrl).toMatch(/^blob:/)
 
     })
