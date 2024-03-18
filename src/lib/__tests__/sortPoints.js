@@ -281,4 +281,47 @@ describe('sortPoints Function Unit Testing', () => {
     })
 
 
+    // Size 25 array is sorted correctly
+    test('Size 25 array is sorted correctly', () => {
+
+        // Arrange - unsorted array of points
+        const points = [
+            { x: 5, y: 1 },   { x: 3, y: 10 },
+            { x: 2, y: 4 },   { x: 9, y: 1 },
+            { x: 21, y: 13 }, { x: 7, y: 16 },
+            { x: 4, y: 12 },  { x: 18, y: 19 },
+            { x: 14, y: 13 }, { x: 24, y: 6 },
+            { x: 25, y: 18 }, { x: 17, y: 17 },
+            { x: 13, y: 19 }, { x: 16, y: 2 },
+            { x: 6, y: 1 },   { x: 12, y: 5 },
+            { x: 8, y: 7 },   { x: 11, y: 3 },
+            { x: 22, y: 9 },  { x: 15, y: 3 },
+            { x: 19, y: 16 }, { x: 20, y: 12 },
+            { x: 10, y: 1 },  { x: 23, y: 19 },
+            { x: 1, y: 8 }
+          ]
+
+        // Act - use sortPoints to sort
+        const sortedPoints = sortPoints(points)
+
+        // Assert - verify that the points are truly sorted
+        expect(sortedPoints).toEqual([
+            { x: 1, y: 8 },   { x: 2, y: 4 },
+            { x: 3, y: 10 },  { x: 4, y: 12 },
+            { x: 5, y: 1 },   { x: 6, y: 1 },
+            { x: 7, y: 16 },  { x: 8, y: 7 },
+            { x: 9, y: 1 },   { x: 10, y: 1 },
+            { x: 11, y: 3 },  { x: 12, y: 5 },
+            { x: 13, y: 19 }, { x: 14, y: 13 },
+            { x: 15, y: 3 },  { x: 16, y: 2 },
+            { x: 17, y: 17 }, { x: 18, y: 19 },
+            { x: 19, y: 16 }, { x: 20, y: 12 },
+            { x: 21, y: 13 }, { x: 22, y: 9 },
+            { x: 23, y: 19 }, { x: 24, y: 6 },
+            { x: 25, y: 18 }
+          ])
+
+    })
+
+
 })
