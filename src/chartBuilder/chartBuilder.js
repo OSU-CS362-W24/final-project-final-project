@@ -30,6 +30,7 @@ module.exports = function runChartBuilder(type) {
     const clearChartBtn = document.getElementById("clear-chart-btn")
     const saveChartBtn = document.getElementById("save-chart-btn")
     const chartDisplay = document.getElementById("chart-display")
+    var elements = 1
 
     /*
      * This value contains the data for the chart that is currently being
@@ -204,9 +205,12 @@ module.exports = function runChartBuilder(type) {
         const lowerXOrY = xOrY.toLowerCase()
         const upperXOrY = xOrY.toUpperCase()
         const labelElem = document.createElement("label")
+        const testid = elements.toString()
         labelElem.classList.add(`${lowerXOrY}-value`)
         const inputType = (type === "bar" && lowerXOrY === "x") ? "" : "type='number'"
-        labelElem.innerHTML = `${upperXOrY} <input ${inputType} class="${lowerXOrY}-value-input" />`
+        labelElem.innerHTML = `${upperXOrY} <input ${inputType} class="${lowerXOrY}-value-input" data-testid= "data-${testid}"/>`
+        elements = elements + 1
+        console.log(elements)
         return labelElem
     }
 
