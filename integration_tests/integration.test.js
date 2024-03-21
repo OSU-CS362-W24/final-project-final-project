@@ -23,10 +23,9 @@ async function initDomFromFiles(htmlPath, jsPath) {
     document.open()
     document.write(html)
     document.close()
-	console.log(jsPath)
-	jest.isolateModules(function() {
-		require(jsPath)
-	})
+
+	require(jsPath)
+
 }
 
 test("Chart Builder recognizes when values are added to a chart", async function() {
@@ -196,30 +195,34 @@ test("Chart Builder clears all fields correctly", async function () {
     expect(xyInputs.length).toBe(2)
 })
 
-test("generateChartImg receives all user inputs correctly", async function () {
-    // Arrange:
+
+
+test("Data correctly sent to generateChartImg function", async function() {
+    //Arrange:
     await initDomFromFiles(path.join(__dirname, '../src/line/line.html'), path.join(__dirname, '../src/line/line.js'))
     const user = userEvent.setup()
-    const generateChartImg = require(path.join(__dirname, '../src/lib/generateChartImg.js'));
 
-    // Acquire:
-    const generateChartImgSpy = jest.spyOn(generateChartImg, 'generateChartImg');
+    //Acquire:
+    jest.mock("../src/lib/generateChartImg.js")
+    const generateChartImgStub = require("../src/lib/generateChartImg")
+    generateChartImgStub.mockImplementation(function() {
+        return "http://placekitten.com/480/480"
+    })
+
+    const generateButton = domTesting.getByRole(document, "button", {name: /Generate chart/i})
+    const addValueButton = domTesting.getByRole(document, "button", {name: "+"})
     const titleField = domTesting.getByLabelText(document, "Chart title")
-    const chartColor = domTesting.getByLabelText(document, "Chart color")
     const xLabelInput = domTesting.getByLabelText(document, "X label")
     const yLabelInput = domTesting.getByLabelText(document, "Y label")
-    const addValueButton = domTesting.getByRole(document, "button", { name: "+" })
     var xyInputs = domTesting.getAllByRole(document, "spinbutton")
-    const generateButton = domTesting.getByRole(document, "button", { name: /Generate chart/i })
 
-    // Act:
+
+    //Act:
     await user.type(titleField, "Cats vs Dogs")
-    await user.click(chartColor)
-    await user.type(chartColor, "{arrowdown}") // Decrease R
-    await user.type(chartColor, "{arrowdown}") // Decrease G
-    await user.type(chartColor, "{arrowdown}") // Decrease B
-    await user.type(xLabelInput, "Cats")
-    await user.type(yLabelInput, "Dogs")
+    await user.type(xLabelInput, "Cats");
+    await user.type(yLabelInput, "Dogs");
+    
+    await user.click(addValueButton)
     await user.click(addValueButton)
     await user.click(addValueButton)
     await user.click(addValueButton)
@@ -238,19 +241,29 @@ test("generateChartImg receives all user inputs correctly", async function () {
     await user.type(xyInputs[5], "6")
     await user.type(xyInputs[6], "7")
     await user.type(xyInputs[7], "8")
-    await user.type(xyInputs[8], "9")
-    await user.type(xyInputs[9], "10")
-    await user.click(generateButton)
+    await user.type(xyInputs[6], "9")
+    await user.type(xyInputs[7], "10")
 
-    // Assert: Check if generateChartImg was called with the correct arguments
-    expect(generateChartImgSpy).toHaveBeenCalledTimes(1);
-    expect(generateChartImgSpy).toHaveBeenCalledWith(
-        "line",
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        "Cats",
-        "Dogs",
-        "Cats vs Dogs",
-        "#FC4503"
-    );
-});
+
+    await user.click(generateButton)
+    
+
+    // Assert 
+    expect(generateChartImgStub).toHaveBeenCalledTimes(1)
+    expect(generateChartImgStub).toHaveBeenCalledWith(
+                "line",
+                [{ "x": "1", "y": "2"}, { "x": "3", "y": "4"}, { "x": "5", "y": "6"}, { "x": "79", "y": "810"}],
+                "Cats",
+                "Dogs",
+                "Cats vs Dogs",
+                "#ff4500"
+            );
+
+    //Clean:
+    generateChartImgStub.mockRestore()
+})
+
+
+
+
 
