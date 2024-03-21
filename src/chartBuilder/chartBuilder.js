@@ -230,6 +230,7 @@ module.exports = function runChartBuilder(type) {
      */
     async function generateChart() {
         const data = gatherData(type !== "bar")
+        
         if (!data.length) {
             alert("Error: No data specified!")
             return
