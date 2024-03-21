@@ -8,7 +8,6 @@ require("@testing-library/jest-dom")
 const domTesting = require("@testing-library/dom")
 const userEvent = require("@testing-library/user-event").default
 const path = require('path')
-const generateChartImg = require("../src/lib/generateChartImg")
 
 beforeEach(function() {
     document.documentElement.innerHTML = ''
@@ -202,8 +201,6 @@ test("generateChartImg receives all user inputs correctly", async function () {
     await initDomFromFiles(path.join(__dirname, '../src/line/line.html'), path.join(__dirname, '../src/line/line.js'))
     const user = userEvent.setup()
     const generateChartImg = require(path.join(__dirname, '../src/lib/generateChartImg.js'));
-
-    /Users/maratmuzaffarov/Downloads/CS362/final_project/src/lib/generateChartImg.js
 
     // Acquire:
     const generateChartImgSpy = jest.spyOn(generateChartImg, 'generateChartImg');
