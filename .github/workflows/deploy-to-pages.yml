@@ -8,7 +8,7 @@ jobs:
         with:
             upload-pages-artifact: true
     deploy-to-pages:
-        runs-on: ubunto-latest
+        runs-on: ubuntu-latest
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
