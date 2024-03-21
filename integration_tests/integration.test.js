@@ -135,3 +135,59 @@ test("Chart Builder given alert when missing labels", async function() {
     //Clean:
     alertSpy.mockRestore()
 })
+
+test("Chart Builder clears all fields correctly", async function () {
+    // Arrange:
+    await initDomFromFiles(path.join(__dirname, '../src/line/line.html'), path.join(__dirname, '../src/line/line.js'))
+    const user = userEvent.setup()
+
+    // Acquire:
+    const titleField = domTesting.getByLabelText(document, "Chart title")
+    const chartColor = domTesting.getByLabelText(document, "Chart color")
+    const xLabelInput = domTesting.getByLabelText(document, "X label")
+    const yLabelInput = domTesting.getByLabelText(document, "Y label")
+    const addValueButton = domTesting.getByRole(document, "button", { name: "+" })
+    var xyInputs = domTesting.getAllByRole(document, "spinbutton")
+    const clearButton = domTesting.getByRole(document, "button", { name: /Clear chart data/i })
+
+    // Act:
+    await user.type(titleField, "Cats vs Dogs")
+    await user.click(chartColor)
+    await user.type(chartColor, "{arrowdown}") // Decrease R
+    await user.type(chartColor, "{arrowdown}") // Decrease G
+    await user.type(chartColor, "{arrowdown}") // Decrease B
+    await user.type(xLabelInput, "Time")
+    await user.type(yLabelInput, "Value")
+    await user.click(addValueButton)
+    await user.click(addValueButton)
+    await user.click(addValueButton)
+    await user.click(addValueButton)
+    await user.click(addValueButton)
+
+    //Acquire:
+    xyInputs = domTesting.getAllByRole(document, "spinbutton")
+
+    //Act:
+    await user.type(xyInputs[0], "1")
+    await user.type(xyInputs[1], "2")
+    await user.type(xyInputs[2], "3")
+    await user.type(xyInputs[3], "4")
+    await user.type(xyInputs[4], "5")
+    await user.type(xyInputs[5], "6")
+    await user.type(xyInputs[6], "7")
+    await user.type(xyInputs[7], "8")
+    await user.type(xyInputs[8], "9")
+    await user.type(xyInputs[9], "10")
+    await user.click(clearButton)
+
+    //Act:
+    xyInputs = domTesting.getAllByRole(document, "spinbutton")
+
+    // Assert:
+    expect(titleField).toHaveValue("")
+    expect(chartColor).toHaveValue("#ff4500")
+    expect(xLabelInput).toHaveValue("")
+    expect(yLabelInput).toHaveValue("")
+    expect(xyInputs.length).toBe(2)
+})
+
