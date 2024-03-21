@@ -39,3 +39,15 @@ Cypress.Commands.add("data", function() {
     cy.findByTestId("data-5").type('3')
     cy.findByTestId("data-6").type('15')
 })
+
+Cypress.Commands.add("datacheck", function() {
+    cy.findByLabelText("Chart title").should("have.value", "cats v dogs")
+    cy.findByLabelText("X label").should("have.value", "cats")
+    cy.findByLabelText("Y label").should("have.value", "dogs")
+    cy.findByTestId("data-1").should("have.value", "1")
+    cy.findByTestId("data-2").should("have.value", "3")
+    cy.findByTestId("data-3").should("have.value", "2")
+    cy.findByTestId("data-4").should("have.value", "7")
+    cy.findByTestId("data-5").should("have.value", "3")
+    cy.findByTestId("data-6").should("have.value", "15")
+})

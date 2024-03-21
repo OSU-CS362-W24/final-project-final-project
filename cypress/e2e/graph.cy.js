@@ -41,4 +41,17 @@ describe('testing chart making', () => {
     cy.findByRole("link", { name: "Gallery"}).click()
     cy.findByText("cats v dogs").should("exist")
   })
+
+  it('reopens previously saved chart from gallery', () => {
+    cy.visit('/')
+    cy.findByRole("link", { name: "Line"}).click()
+    cy.data()
+    cy.findByRole("button", { name: "Generate chart"}).click()
+    cy.findByRole("button", { name: "Save chart"}).click()
+    cy.findByRole("link", { name: "Gallery"}).click()
+    cy.findByRole("img", { name: "cats v dogs"}).click()
+    cy.findByRole("img").should('exist')
+    cy.url().should("contain", "line")
+    cy.datacheck()
+  })
 })
